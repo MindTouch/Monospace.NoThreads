@@ -14,8 +14,13 @@ Unless required by applicable law or agreed to in writing, software distributed 
 Contents
 ========
 Program - contains the examples, can be run as a console app (running all examples) or individually via a NUnit test runner
+
 AsyncMethodExample - Examples of async methods using either Task<T> or Result<T>
+
 AsyncAdapter<T> - implementation of async access closure IAsyncAdapter
+
 IAsyncAdapter<T> - Async access closure for any type T
+
 SharingWithLocks - Example of traditional mechanism for guarantee serial access to a resource
+
 SharingWithAsync - Example of using IAsyncAdapter to access a resource in a serial manner without locking the resource

@@ -14,17 +14,21 @@ Unless required by applicable law or agreed to in writing, software distributed 
 Contents
 ========
 Program - contains the examples, can be run as a console app (running all examples) or individually via a NUnit test runner
+
 IteratorExample - Example how IEnumerator<T> returning methods work
+
 Coordinator - the coroutine coordinator, the class responsible for wiring up and coordinating coroutine calls
+
 Producer - Coroutine reading form source array one row at a time and yielding to coordinator once a row is read
+
 Consumer - Coroutine writing incoming sequence of ints into destination array
+
 Exponentiator - Optional Coroutine, that hooks between producer and consumer to modify vales 
 
 Coroutine "Shape"
 =================
 Each coroutine has to have a common "shape". It takes in a coordinator which it uses to yield control and return an enumerator so it can use yield return to suspend itself in favor of the coordinator. Each coroutine generally runs in an execution loop, occasionally yielding to the coordinator, usually when it has produced or consumed a certain amount of data.
 
-::
   public IEnumerator<Coordinator<T>> SampleCoroutine(Coordinator<T> coordinator) {
     while(someCondition) {
       // do some work

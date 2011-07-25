@@ -15,3 +15,13 @@ Requirements
 ============
 
 These examples depend on the Async CTP.
+
+Contents
+========
+Monospace-NoThreads.pdf - slides from Monospace 2011 talk
+
+Monospace.NoThreads.State - see ReadMe in project folder
+
+Monospace.NoThreads.IteratorCoroutines - see ReadMe in project folder
+
+Monospace.NoThreads.AsyncCoroutines - see ReadMe in project folder
