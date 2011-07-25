@@ -1,5 +1,5 @@
 Monospace.NoThreads.IteratorCoroutines
-======================================S
+======================================
 
 License
 =======
