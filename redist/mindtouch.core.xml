@@ -1,0 +1,598 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>mindtouch.core</name>
+    </assembly>
+    <members>
+        <member name="T:MindTouch.Dream.DreamHost">
+            <summary>
+            Provides a hosting environment for <see cref="T:MindTouch.Dream.IDreamService"/> based services.
+            </summary>
+        </member>
+        <member name="F:MindTouch.Dream.DreamHost.DEFAULT_PORT">
+            <summary>
+            Default dream host port: 8081
+            </summary>
+        </member>
+        <member name="M:MindTouch.Dream.DreamHost.#ctor">
+            <summary>
+            Create a new host with default settings.
+            </summary>
+        </member>
+        <member name="M:MindTouch.Dream.DreamHost.#ctor(MindTouch.Xml.XDoc)">
+            <summary>
+            Create a new host with provided configuration.
+            </summary>
+            <param name="config">Host configuration.</param>
+        </member>
+        <member name="M:MindTouch.Dream.DreamHost.#ctor(MindTouch.Xml.XDoc,Autofac.IContainer)">
+            <summary>
+            Create a new host with provided configuration and an Inversion of Control container.
+            </summary>
+            <remarks>
+            The IoC container is also injected into default activator, so that <see cref="T:MindTouch.Dream.IDreamService"/> instances
+            can be resolved from the container. The host configuration is provided to the container as a typed parameter.
+            </remarks>
+            <param name="config">Host configuration.</param>
+            <param name="container">IoC Container.</param>
+        </member>
+        <member name="M:MindTouch.Dream.DreamHost.Finalize">
+            <summary>
+            Finalizer to clean-up an undisposed host.
+            </summary>
+        </member>
+        <member name="M:MindTouch.Dream.DreamHost.RunScripts(MindTouch.Xml.XDoc,System.String)">
+            <summary>
+            Execute a set of scripts against the host.
+            </summary>
+            <remarks>
+            This method is thread-blocking.  Please avoid using it if possible.
+            </remarks>
+            <param name="scripts">Scripts document.</param>
+            <param name="path">Host path to post the scripts against.</param>
+        </member>
+        <member name="M:MindTouch.Dream.DreamHost.RunScript(MindTouch.Xml.XDoc,System.String)">
+            <summary>
+            Execute a script against the host.
+            </summary>
+            <remarks>
+            This method is thread-blocking.  Please avoid using it if possible.
+            </remarks>
+            <param name="script">Script document.</param>
+            <param name="path">Host path to post the script against.</param>
+        </member>
+        <member name="M:MindTouch.Dream.DreamHost.WaitUntilShutdown">
+            <summary>
+            Block the current thread until the host shuts down.
+            </summary>
+            <remarks>
+            This call does not initiate a shut down.
+            </remarks>
+        </member>
+        <member name="M:MindTouch.Dream.DreamHost.AddActivityDescription(System.Object,System.String)">
+            <summary>
+            Add a host activity.
+            </summary>
+            <param name="key">Activity key.</param>
+            <param name="description">Description of activity.</param>
+        </member>
+        <member name="M:MindTouch.Dream.DreamHost.RemoveActivityDescription(System.Object)">
+            <summary>
+            Remove a host activity.
+            </summary>
+            <param name="key">Activity key.</param>
+        </member>
+        <member name="M:MindTouch.Dream.DreamHost.UpdateInfoMessage(System.String,System.String)">
+            <summary>
+            Update the host's info message.
+            </summary>
+            <param name="source">Message source.</param>
+            <param name="message">Info message.</param>
+        </member>
+        <member name="M:MindTouch.Dream.DreamHost.Dispose">
+            <summary>
+            Shut down and clean up the host's resources.
+            </summary>
+        </member>
+        <member name="P:MindTouch.Dream.DreamHost.Self">
+            <summary>
+            Http location of host <see cref="T:MindTouch.Dream.IDreamService"/>.
+            </summary>
+        </member>
+        <member name="P:MindTouch.Dream.DreamHost.GlobalId">
+            <summary>
+            Global Id used for local:// uri's
+            </summary>
+        </member>
+        <member name="P:MindTouch.Dream.DreamHost.IsRunning">
+            <summary>
+            <see langword="True"/> if the host is running.
+            </summary>
+        </member>
+        <member name="P:MindTouch.Dream.DreamHost.LocalMachineUri">
+            <summary>
+            Root local:// uri for this host.
+            </summary>
+        </member>
+        <member name="P:MindTouch.Dream.DreamHost.ActivityMessages">
+            <summary>
+            Current host activity.
+            </summary>
+        </member>
+        <member name="T:MindTouch.Dream.DreamApplicationConfiguration">
+            <summary>
+            <see cref="T:MindTouch.Dream.DreamApplication"/> configuration model. Built via <see cref="T:MindTouch.Dream.DreamApplicationConfigurationBuilder"/>.
+            </summary>
+        </member>
+        <member name="F:MindTouch.Dream.DreamApplicationConfiguration.HostConfig">
+            <summary>
+            <see cref="T:MindTouch.Dream.DreamHostService"/> configuration document.
+            </summary>
+        </member>
+        <member name="F:MindTouch.Dream.DreamApplicationConfiguration.Apikey">
+            <summary>
+            Host apikey.
+            </summary>
+        </member>
+        <member name="F:MindTouch.Dream.DreamApplicationConfiguration.ServicesDirectory">
+            <summary>
+            Location of dynamically loaded service assemblies.
+            </summary>
+        </member>
+        <member name="F:MindTouch.Dream.DreamApplicationConfiguration.Prefix">
+            <summary>
+            Host Uri prefix.
+            </summary>
+        </member>
+        <member name="F:MindTouch.Dream.DreamApplicationConfiguration.Script">
+            <summary>
+            Host script.
+            </summary>
+        </member>
+        <member name="T:MindTouch.Dream.AmazonS3.S3PlugEx">
+            <summary>
+            Amazon S3 related extension methods for <see cref="T:MindTouch.Dream.Plug"/>
+            </summary>
+        </member>
+        <member name="M:MindTouch.Dream.AmazonS3.S3PlugEx.WithS3Authentication(MindTouch.Dream.Plug,System.String,System.String)">
+            <summary>
+            Add a Plug Pre-Handler to attach the appropriate auth header.
+            </summary>
+            <param name="plug">Plug instance to base operation on.</param>
+            <param name="privateKey">Amazon S3 private key.</param>
+            <param name="publicKey">Amazon S3 public key.</param>
+            <returns>New Plug instance with pre-handler.</returns>
+        </member>
+        <member name="T:MindTouch.Dream.Services.SmtpSettings">
+            <summary>
+            Settings container for clients created with <see cref="T:MindTouch.Dream.Services.ISmtpClientFactory"/>.
+            </summary>
+        </member>
+        <member name="F:MindTouch.Dream.Services.SmtpSettings.Host">
+            <summary>
+            Smtp Host
+            </summary>
+        </member>
+        <member name="F:MindTouch.Dream.Services.SmtpSettings.Port">
+            <summary>
+            Optional Smtp Port;
+            </summary>
+        </member>
+        <member name="F:MindTouch.Dream.Services.SmtpSettings.AuthUser">
+            <summary>
+            Optional Authentication User
+            </summary>
+        </member>
+        <member name="F:MindTouch.Dream.Services.SmtpSettings.AuthPassword">
+            <summary>
+            Optional Authentication Password
+            </summary>
+        </member>
+        <member name="F:MindTouch.Dream.Services.SmtpSettings.EnableSsl">
+            <summary>
+            Try to use secure connection?
+            </summary>
+        </member>
+        <member name="F:MindTouch.Dream.Services.SmtpSettings.Apikey">
+            <summary>
+            Apikey that will be provided to authorize the use of these settings.
+            </summary>
+        </member>
+        <member name="T:MindTouch.Dream.Services.SmtpClientFactory">
+            <summary>
+            Implementation of <see cref="T:MindTouch.Dream.Services.ISmtpClientFactory"/>
+            </summary>
+        </member>
+        <member name="T:MindTouch.Dream.Services.ISmtpClientFactory">
+            <summary>
+            Factory for creating <see cref="T:MindTouch.Dream.Services.ISmtpClient"/> instances.
+            </summary>
+        </member>
+        <member name="M:MindTouch.Dream.Services.ISmtpClientFactory.CreateClient(MindTouch.Dream.Services.SmtpSettings)">
+            <summary>
+            Create a new <see cref="T:MindTouch.Dream.Services.ISmtpClient"/>.
+            </summary>
+            <param name="settings">Client settings.</param>
+            <returns>New <see cref="T:MindTouch.Dream.Services.ISmtpClient"/> instance</returns>
+        </member>
+        <member name="M:MindTouch.Dream.Services.SmtpClientFactory.CreateClient(MindTouch.Dream.Services.SmtpSettings)">
+            <summary>
+            Create a new <see cref="T:MindTouch.Dream.Services.ISmtpClient"/>.
+            </summary>
+            <param name="settings">Client settings.</param>
+            <returns>New <see cref="T:MindTouch.Dream.Services.ISmtpClient"/> instance</returns>
+        </member>
+        <member name="T:MindTouch.Dream.Services.SmtpClientWrapper">
+            <summary>
+            Implemenation of <see cref="T:MindTouch.Dream.Services.ISmtpClient"/> wrapping the standard <see cref="T:System.Net.Mail.SmtpClient"/>.
+            </summary>
+        </member>
+        <member name="T:MindTouch.Dream.Services.ISmtpClient">
+            <summary>
+            Simple Smtp client interface
+            </summary>
+        </member>
+        <member name="M:MindTouch.Dream.Services.ISmtpClient.Send(System.Net.Mail.MailMessage)">
+            <summary>
+            Send a mail message.
+            </summary>
+            <param name="message">Message to send.</param>
+        </member>
+        <member name="M:MindTouch.Dream.Services.SmtpClientWrapper.#ctor(System.Net.Mail.SmtpClient)">
+            <summary>
+            Create a new <see cref="T:System.Net.Mail.SmtpClient"/> wrapper.
+            </summary>
+            <param name="client"></param>
+        </member>
+        <member name="T:MindTouch.Dream.AmazonS3.IAmazonS3Client">
+            <summary>
+            Amazon S3 Client abstraction for use by <see cref="T:MindTouch.Dream.Services.S3StorageService"/>
+            </summary>
+        </member>
+        <member name="M:MindTouch.Dream.AmazonS3.IAmazonS3Client.GetDataInfo(System.String,System.Boolean)">
+            <summary>
+            Retrieve file or directory information at given path.
+            </summary>
+            <param name="path">Path to retrieve.</param>
+            <param name="head">Perform a HEAD request only.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MindTouch.Dream.AmazonS3.IAmazonS3Client.PutFile(System.String,MindTouch.Dream.AmazonS3.AmazonS3FileHandle)">
+            <summary>
+            Store a file at a path.
+            </summary>
+            <param name="path">Storage path.</param>
+            <param name="fileInfo">File to store.</param>
+        </member>
+        <member name="M:MindTouch.Dream.AmazonS3.IAmazonS3Client.Delete(System.String)">
+            <summary>
+            Delete a file or directory.
+            </summary>
+            <param name="path">Path to delete.</param>
+        </member>
+        <member name="T:MindTouch.Dream.AmazonS3.AmazonS3DataInfo">
+            <summary>
+            Container for data returned from <see cref="M:MindTouch.Dream.AmazonS3.IAmazonS3Client.GetDataInfo(System.String,System.Boolean)"/>.
+            </summary>
+        </member>
+        <member name="M:MindTouch.Dream.AmazonS3.AmazonS3DataInfo.#ctor(MindTouch.Xml.XDoc)">
+            <summary>
+            Create a directory data info instance.
+            </summary>
+            <param name="directoryDocument">Directory document.</param>
+        </member>
+        <member name="M:MindTouch.Dream.AmazonS3.AmazonS3DataInfo.#ctor(MindTouch.Dream.AmazonS3.AmazonS3FileHandle)">
+            <summary>
+            Create a file data info instance.
+            </summary>
+            <param name="fileHandle">File info instance.</param>
+        </member>
+        <member name="M:MindTouch.Dream.AmazonS3.AmazonS3DataInfo.AsDirectoryDocument">
+            <summary>
+            Return the underlying directory document.
+            </summary>
+            <returns>Directory document.</returns>
+        </member>
+        <member name="M:MindTouch.Dream.AmazonS3.AmazonS3DataInfo.AsFileHandle">
+            <summary>
+            Return the underlying file handle.
+            </summary>
+            <returns>File handle instance.</returns>
+        </member>
+        <member name="P:MindTouch.Dream.AmazonS3.AmazonS3DataInfo.IsDirectory">
+            <summary>
+            True if the data info refers to directory
+            </summary>
+        </member>
+        <member name="M:MindTouch.Dream.CoreUtil.ExecuteAction(MindTouch.Dream.Plug,MindTouch.Dream.DreamHeaders,MindTouch.Xml.XDoc)">
+            <summary>
+            WARNING: This method is thread-blocking.  Please avoid using it if possible.
+            </summary>
+        </member>
+        <member name="M:MindTouch.Dream.CoreUtil.ExecutePipe(MindTouch.Dream.Plug,MindTouch.Dream.DreamHeaders,MindTouch.Xml.XDoc)">
+            <summary>
+            WARNING: This method is thread-blocking.  Please avoid using it if possible.
+            </summary>
+        </member>
+        <member name="T:MindTouch.Dream.AmazonS3.AmazonS3Client">
+            <summary>
+            Amazon S3 Client abstraction for use by <see cref="T:MindTouch.Dream.Services.S3StorageService"/>
+            </summary>
+        </member>
+        <member name="M:MindTouch.Dream.AmazonS3.AmazonS3Client.#ctor(MindTouch.Dream.AmazonS3.AmazonS3ClientConfig,MindTouch.Tasking.TaskTimerFactory)">
+            <summary>
+            Create new client instance 
+            </summary>
+            <param name="config">Client configuration.</param>
+            <param name="timerFactory">Timer factory.</param>
+        </member>
+        <member name="M:MindTouch.Dream.AmazonS3.AmazonS3Client.GetDataInfo(System.String,System.Boolean)">
+            <summary>
+            Retrieve file or directory information at given path.
+            </summary>
+            <param name="path">Path to retrieve.</param>
+            <param name="head">Perform a HEAD request only.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MindTouch.Dream.AmazonS3.AmazonS3Client.PutFile(System.String,MindTouch.Dream.AmazonS3.AmazonS3FileHandle)">
+            <summary>
+            Store a file at a path.
+            </summary>
+            <param name="path">Storage path.</param>
+            <param name="fileHandle">File to store.</param>
+        </member>
+        <member name="M:MindTouch.Dream.AmazonS3.AmazonS3Client.Delete(System.String)">
+            <summary>
+            Delete a file or directory.
+            </summary>
+            <param name="path">Path to delete.</param>
+        </member>
+        <member name="M:MindTouch.Dream.AmazonS3.AmazonS3Client.Dispose">
+            <summary>
+            See <see cref="M:System.IDisposable.Dispose"/>.
+            </summary>
+        </member>
+        <member name="T:MindTouch.Dream.AmazonS3.AmazonS3FileHandle">
+            <summary>
+            File Handle container.
+            </summary>
+        </member>
+        <member name="P:MindTouch.Dream.AmazonS3.AmazonS3FileHandle.Modified">
+            <summary>
+            File modification, if the file was retrieved from S3.
+            </summary>
+        </member>
+        <member name="P:MindTouch.Dream.AmazonS3.AmazonS3FileHandle.Size">
+            <summary>
+            Size of the file.
+            </summary>
+        </member>
+        <member name="P:MindTouch.Dream.AmazonS3.AmazonS3FileHandle.Stream">
+            <summary>
+            File data stream (null, if this handle refers to a HEAD request.
+            </summary>
+        </member>
+        <member name="P:MindTouch.Dream.AmazonS3.AmazonS3FileHandle.MimeType">
+            <summary>
+            File mime type.
+            </summary>
+        </member>
+        <member name="P:MindTouch.Dream.AmazonS3.AmazonS3FileHandle.Expiration">
+            <summary>
+            File expiration date.
+            </summary>
+        </member>
+        <member name="P:MindTouch.Dream.AmazonS3.AmazonS3FileHandle.TimeToLive">
+            <summary>
+            File time-to-live.
+            </summary>
+        </member>
+        <member name="T:MindTouch.Dream.IServiceActivator">
+            <summary>
+            Provides a mechanism for instantiating <see cref="T:MindTouch.Dream.IDreamService"/> instances.
+            </summary>
+        </member>
+        <member name="M:MindTouch.Dream.IServiceActivator.Create(MindTouch.Xml.XDoc,System.Type)">
+            <summary>
+            Create a new <see cref="T:MindTouch.Dream.IDreamService"/> instance.
+            </summary>
+            <param name="config">Service configuration that will later be used to initialize the instance.</param>
+            <param name="type">Type of the <see cref="T:MindTouch.Dream.IDreamService"/> implemntor to instantiate.</param>
+            <returns>A service instance.</returns>
+        </member>
+        <member name="T:MindTouch.Dream.DreamApplicationConfigurationBuilder">
+            <summary>
+            Fluent interface for building an <see cref="T:MindTouch.Dream.DreamApplication"/>.
+            </summary>
+        </member>
+        <member name="M:MindTouch.Dream.DreamApplicationConfigurationBuilder.FromAppSettings">
+            <summary>
+            Create configuration from <see cref="P:System.Configuration.ConfigurationManager.AppSettings"/> and execution base path.
+            </summary>
+            <returns>Configuration instance.</returns>
+        </member>
+        <member name="M:MindTouch.Dream.DreamApplicationConfigurationBuilder.FromAppSettings(System.String)">
+            <summary>
+            Create configuration from <see cref="P:System.Configuration.ConfigurationManager.AppSettings"/> and execution base path.
+            </summary>
+            <param name="basePath">File system path to execution base.</param>
+            <returns>Configuration instance.</returns>
+        </member>
+        <member name="M:MindTouch.Dream.DreamApplicationConfigurationBuilder.FromAppSettings(System.String,System.String)">
+            <summary>
+            Create configuration from <see cref="P:System.Configuration.ConfigurationManager.AppSettings"/>, execution base path and storage path.
+            </summary>
+            <param name="basePath">File system path to execution base.</param>
+            <param name="storagePath">File sytem path to where the host should keep it's local storage.</param>
+            <returns>Configuration instance.</returns>
+        </member>
+        <member name="M:MindTouch.Dream.DreamApplicationConfigurationBuilder.Create">
+            <summary>
+            Create a new default configuration builder, i.e. not pre-initialized with external settings.
+            </summary>
+            <returns>New configuration instance.</returns>
+        </member>
+        <member name="M:MindTouch.Dream.DreamApplicationConfigurationBuilder.WithApikey(System.String)">
+            <summary>
+            Defined the master apikey for the application.
+            </summary>
+            <param name="apikey">Api key</param>
+            <returns>Current builder instance.</returns>
+        </member>
+        <member name="M:MindTouch.Dream.DreamApplicationConfigurationBuilder.WithServicesDirectory(System.String)">
+            <summary>
+            Define the directory to scan for <see cref="T:MindTouch.Dream.IDreamService"/> types.
+            </summary>
+            <param name="servicesDirectory">Absolute path to directory containing assemblies with service types.</param>
+            <returns>Current builder instance.</returns>
+        </member>
+        <member name="M:MindTouch.Dream.DreamApplicationConfigurationBuilder.WithHostConfig(MindTouch.Xml.XDoc)">
+            <summary>
+            Define the <see cref="T:MindTouch.Dream.DreamHostService"/> xml configuration.
+            </summary>
+            <param name="hostConfig"></param>
+            <returns>Current builder instance.</returns>
+        </member>
+        <member name="M:MindTouch.Dream.DreamApplicationConfigurationBuilder.ForHttpApplication(System.Web.HttpApplication)">
+            <summary>
+            Attach the <see cref="T:System.Web.HttpApplication"/> that the <see cref="T:MindTouch.Dream.DreamApplication"/> to be built will be attached to.
+            </summary>
+            <param name="application">HttpApplication to attach to.</param>
+            <returns>Current builder instance.</returns>
+        </member>
+        <member name="M:MindTouch.Dream.DreamApplicationConfigurationBuilder.WithServiceConfiguration(System.Action{MindTouch.Dream.DreamServiceRegistrationBuilder})">
+            <summary>
+            Add a service configuration.
+            </summary>
+            <param name="configurationCallback">Service configuration callback.</param>
+            <returns>Current builder instance.</returns>
+        </member>
+        <member name="M:MindTouch.Dream.DreamApplicationConfigurationBuilder.WithApplicationAssembly(System.Reflection.Assembly)">
+            <summary>
+            Attach the assembly to scan for services by the conventions of <see cref="M:MindTouch.Dream.DreamServiceRegistrationBuilder.ScanAssemblyForServices(System.Reflection.Assembly)"/>
+            </summary>
+            <remarks>
+            By default, the assembly that the HttpApplication lives in will be scanned.
+            </remarks>
+            <param name="assembly">Service assembly.</param>
+            <returns>Current builder instance.</returns>
+        </member>
+        <member name="M:MindTouch.Dream.DreamApplicationConfigurationBuilder.WithFilteredAssemblyServices(System.Func{System.Type,System.Boolean})">
+            <summary>
+            Provide an assembly scanning filter.
+            </summary>
+            <param name="filter">Filter callback.</param>
+            <returns>Current builder instance.</returns>
+        </member>
+        <member name="M:MindTouch.Dream.DreamApplicationConfigurationBuilder.WithPathPrefix(System.String)">
+            <summary>
+            Set the path prefix for the application.
+            </summary>
+            <param name="prefix">Path prefix.</param>
+            <returns>Current builder instance.</returns>
+        </member>
+        <member name="M:MindTouch.Dream.DreamApplicationConfigurationBuilder.CreateApplication">
+            <summary>
+            Create the new <see cref="T:MindTouch.Dream.DreamApplication"/> inside the <see cref="T:System.Web.HttpApplication"/>.
+            </summary>
+            <returns>Application instance.</returns>
+        </member>
+        <member name="T:MindTouch.Dream.Http.HttpHandler">
+            <summary>
+            Provides an <see cref="T:System.Web.IHttpHandler"/> implementation to load Dream inside of IIS.
+            </summary>
+        </member>
+        <member name="M:MindTouch.Dream.Http.HttpHandler.#ctor">
+            <summary>
+            Create new handler instance
+            </summary>
+        </member>
+        <member name="T:MindTouch.Dream.DreamApplication">
+            <summary>
+            Container for embedding the Dream hosting environment inside of an ASP.NET <see cref="T:System.Web.HttpApplication"/>.
+            </summary>
+        </member>
+        <member name="M:MindTouch.Dream.DreamApplication.CreateInHttpApplication(System.Web.HttpApplication)">
+            <summary>
+            Initialize the Dream hosting environment for a given <see cref="T:System.Web.HttpApplication"/>.
+            </summary>
+            <remarks>
+            There can only be a single <see cref="T:MindTouch.Dream.DreamApplication"/> in any one <see cref="T:System.Web.HttpApplication"/>.
+            </remarks>
+            <param name="application">Application to embed the hosting environment.</param>
+            <returns>Created instance.</returns>
+        </member>
+        <member name="M:MindTouch.Dream.DreamApplication.GetRequestBaseUri(System.Web.HttpRequest)">
+            <summary>
+            Application specific base uri for a given request
+            </summary>
+            <param name="request">HttpRequest instance.</param>
+            <returns>Base Uri.</returns>
+        </member>
+        <member name="P:MindTouch.Dream.DreamApplication.Current">
+            <summary>
+            The application instance attached to the current HttpContext, if any.
+            </summary>
+        </member>
+        <member name="P:MindTouch.Dream.DreamApplication.RequestBaseUri">
+            <summary>
+            The application specific base Uri for the current request.
+            </summary>
+        </member>
+        <member name="P:MindTouch.Dream.DreamApplication.Self">
+            <summary>
+            Local Plug to the Application environment.
+            </summary>
+        </member>
+        <member name="T:MindTouch.Dream.AmazonS3.AmazonS3ClientConfig">
+            <summary>
+            Amazon S3 Client configuration
+            </summary>
+        </member>
+        <member name="P:MindTouch.Dream.AmazonS3.AmazonS3ClientConfig.S3BaseUri">
+            <summary>
+            Base uri for Amazon (default: http://s3.amazonaws.com).
+            </summary>
+        </member>
+        <member name="P:MindTouch.Dream.AmazonS3.AmazonS3ClientConfig.PrivateKey">
+            <summary>
+            Private Key.
+            </summary>
+        </member>
+        <member name="P:MindTouch.Dream.AmazonS3.AmazonS3ClientConfig.PublicKey">
+            <summary>
+            Public Key.
+            </summary>
+        </member>
+        <member name="P:MindTouch.Dream.AmazonS3.AmazonS3ClientConfig.Bucket">
+            <summary>
+            Amazon S3 bucket.
+            </summary>
+        </member>
+        <member name="P:MindTouch.Dream.AmazonS3.AmazonS3ClientConfig.RootPath">
+            <summary>
+            Root Path inside Bucket (can be null).
+            </summary>
+        </member>
+        <member name="P:MindTouch.Dream.AmazonS3.AmazonS3ClientConfig.Delimiter">
+            <summary>
+            Path delimiter.
+            </summary>
+        </member>
+        <member name="P:MindTouch.Dream.AmazonS3.AmazonS3ClientConfig.Timeout">
+            <summary>
+            Client call timeout.
+            </summary>
+        </member>
+        <member name="T:MindTouch.Dream.Http.RoutedHttpHandler">
+            <summary>
+            Provides an <see cref="T:System.Web.IHttpHandler"/> implementation to load Dream inside of IIS.
+            </summary>
+        </member>
+        <member name="M:MindTouch.Dream.Http.RoutedHttpHandler.#ctor(MindTouch.Dream.DreamApplication,MindTouch.Dream.IDreamEnvironment)">
+            <summary>
+            Create new handler instance
+            </summary>
+        </member>
+    </members>
+</doc>
