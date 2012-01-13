@@ -29,12 +29,12 @@ Coroutine "Shape"
 =================
 Each coroutine has to have a common "shape". It takes in a coordinator which it uses to yield control and return an enumerator so it can use yield return to suspend itself in favor of the coordinator. Each coroutine generally runs in an execution loop, occasionally yielding to the coordinator, usually when it has produced or consumed a certain amount of data.
 
-  public IEnumerator<Coordinator<T>> SampleCoroutine(Coordinator<T> coordinator) {
+  public IEnumerator SampleCoroutine(Coordinator<T> coordinator) {
     while(someCondition) {
       // do some work
 
       // yield execution to coordinator
-      yield return coordinator;
+      yield return null;
     }
   }
 

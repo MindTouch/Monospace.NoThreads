@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -22,7 +23,7 @@ namespace Monospace.NoThreads.IteratorCoroutines {
             var source = new int[3, 4] { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 } };
             var destination = new int[6, 2];
             var coordinator = new Coordinator<int[]>(
-                new Func<Coordinator<int[]>, IEnumerator<Coordinator<int[]>>>[] {
+                new Func<Coordinator<int[]>, IEnumerator>[] {
 
                     // Curry coroutine into common "shape"
                     c => Consumer.Coroutine(destination, c),
@@ -35,22 +36,22 @@ namespace Monospace.NoThreads.IteratorCoroutines {
         }
 
         [Test]
-        public void Transpose_and_exponentiate() {
-            var source = new int[3, 4] { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 } };
-            var destination = new int[6, 2];
-            var coordinator = new Coordinator<int[]>(
-                new Func<Coordinator<int[]>, IEnumerator<Coordinator<int[]>>>[] {
+public void Transpose_and_exponentiate() {
+var source = new int[3, 4] { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 } };
+var destination = new int[6, 2];
+var coordinator = new Coordinator<int[]>(
+    new Func<Coordinator<int[]>, IEnumerator>[] {
 
-                    // Curry coroutine into common "shape"
-                    c => Consumer.Coroutine(destination, c),
-                    c => Producer.Coroutine(source, c),
-                    Exponentiator.Coroutine
-                }
-            );
-            Print("input", source);
-            coordinator.Execute();
-            Print("output", destination);
-        }
+        // Curry coroutine into common "shape"
+        c => Producer.Coroutine(source, c),
+        Exponentiator.Coroutine,
+        c => Consumer.Coroutine(destination, c)
+    }
+);
+Print("input", source);
+coordinator.Execute();
+Print("output", destination);
+}
 
         private static void Run(string title, Action action) {
             Console.WriteLine("=== {0} ===", title);

@@ -1,0 +1,19 @@
+<Configuration>
+  <Daemon.SolutionSettings>
+    <SkipFilesAndFolders>
+      <Item>70A4B77B-857D-4B2C-9F8C-E2BB97EDCE25/f:SharingWithAsync.cs</Item>
+      <Item>CF1FF2BD-BBAC-47A9-A03C-DC86226BA772/f:Consumer.cs</Item>
+      <Item>CF1FF2BD-BBAC-47A9-A03C-DC86226BA772/f:Exponentiator.cs</Item>
+      <Item>CF1FF2BD-BBAC-47A9-A03C-DC86226BA772/f:Exponentiator2.cs</Item>
+      <Item>CF1FF2BD-BBAC-47A9-A03C-DC86226BA772/f:Producer.cs</Item>
+      <Item>CF1FF2BD-BBAC-47A9-A03C-DC86226BA772/f:Producer2.cs</Item>
+      <Item>D330069B-4313-425F-A296-94181F47578B/d:AsyncAdapter/f:SharingWithAsync.cs</Item>
+      <Item>D330069B-4313-425F-A296-94181F47578B/d:AsyncProducerConsumer/f:Coroutines.cs</Item>
+      <Item>D330069B-4313-425F-A296-94181F47578B/d:CallingStyles/f:AsyncAwait.cs</Item>
+      <Item>D330069B-4313-425F-A296-94181F47578B/d:PlugAwait/f:AwaitablePlug.cs</Item>
+      <Item>D330069B-4313-425F-A296-94181F47578B/f:AsyncVisits.cs</Item>
+      <Item>FAA1E212-899C-4EF0-8C3B-809C281A7EA7/d:Async/f:AsyncDictionary.cs</Item>
+      <Item>FAA1E212-899C-4EF0-8C3B-809C281A7EA7/d:Async/f:AsyncVisitor.cs</Item>
+    </SkipFilesAndFolders>
+  </Daemon.SolutionSettings>
+</Configuration>

@@ -1,12 +1,13 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Monospace.NoThreads.IteratorCoroutines {
     public class Coordinator<T> {
 
-        private readonly Queue<IEnumerator<Coordinator<T>>> _coroutines = new Queue<IEnumerator<Coordinator<T>>>();
-        
-        public Coordinator(IEnumerable<Func<Coordinator<T>, IEnumerator<Coordinator<T>>>> coroutines) {
+        private readonly Queue<IEnumerator> _coroutines = new Queue<IEnumerator>();
+
+        public Coordinator(IEnumerable<Func<Coordinator<T>, IEnumerator>> coroutines) {
 
             // add all coroutines to our queue of coroutines to execute
             foreach(var coroutine in coroutines) {
